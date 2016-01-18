@@ -23,7 +23,7 @@ var setHighWord = require( 'math-float64-set-high-word' );
 Sets the more significant 32 bits (higher order word) of a [double-precision floating-point number][ieee754] `x` to a bit sequence represented by an unsigned 32-bit integer `high`. The returned `double` will have the same less significant 32 bits (lower order word) as `x`.
 
 ``` javascript
-var high = 5;
+var high = 5 >>> 0;
 // => 0 00000000000 00000000000000000101
 
 var y = setHighWord( 3.14e201, high );
@@ -32,7 +32,7 @@ var y = setHighWord( 3.14e201, high );
 var pinf = require( 'const-pinf-float64' );
 // returns +infinity => 0 11111111111 00000000000000000000 00000000000000000000000000000000
 
-high = 1072693248;
+high = 1072693248 >>> 0;
 // => 0 01111111111 00000000000000000000
 
 // Set the higher order bits of `+infinity` to return `1`:
