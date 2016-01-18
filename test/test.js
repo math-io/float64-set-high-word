@@ -101,13 +101,19 @@ tape( 'the function sets the higher order word of a double-precision floating-po
 			high = high.toString( 2 );
 			high = lpad( high, 32, '0' );
 
-			// Higher order bits:
-			actual = bits( y ).substring( 0, 32 );
-			t.equal( actual, high, 'returned double contains expected higher order word' );
+			// Check for NaN:
+			if ( y !== y ) {
+				high = high.substring( 1, 12 );
+				t.equal( high, '11111111111', 'generated NaN => exponent all 1s' );
+			} else {
+				// Higher order bits:
+				actual = bits( y ).substring( 0, 32 );
+				t.equal( actual, high, 'returned double contains expected higher order word. v: ' + v + '. high: ' + high + '.' );
 
-			// Lower order bits:
-			actual = bits( y ).substring( 32 );
-			t.equal( actual, low, 'returned double contains expected lower order word' );
+				// Lower order bits:
+				actual = bits( y ).substring( 32 );
+				t.equal( actual, low, 'returned double contains expected lower order word. v: ' + v + '.' );
+			}
 		}
 	}
 	t.end();
